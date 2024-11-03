@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="一.标签语法 双标签：&lt;开始标签&gt;文本内容&lt;&#x2F;结束标签&gt;   结束标签多了一个**&#x2F;**   单标签：无结束标签 如&lt;br&gt;:换行 &lt;hr&gt;:水平线   二.HTML骨架12345678&lt;html&gt;	&lt;head&gt;    	&lt;title&gt;网页标题&lt;&#x2F;title&gt;	&lt;&#x2F;head&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML学习">
+<meta property="og:url" content="https://yzlsjr.github.io/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一.标签语法 双标签：&lt;开始标签&gt;文本内容&lt;&#x2F;结束标签&gt;   结束标签多了一个**&#x2F;**   单标签：无结束标签 如&lt;br&gt;:换行 &lt;hr&gt;:水平线   二.HTML骨架12345678&lt;html&gt;	&lt;head&gt;    	&lt;title&gt;网页标题&lt;&#x2F;title&gt;	&lt;&#x2F;head&amp;g">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-03T10:35:55.800Z">
+<meta property="article:modified_time" content="2024-11-03T10:37:04.429Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>HTML学习 · 木易小窝</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>木易小窝</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">木易小窝</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">HTML学习</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                HTML学习
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/11/03</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="一-标签语法"><a href="#一-标签语法" class="headerlink" title="一.标签语法"></a>一.标签语法</h1><ol>
+<li><strong>双标签</strong>：&lt;开始标签&gt;文本内容&lt;&#x2F;结束标签&gt;</li>
+</ol>
+<ul>
+<li>结束标签多了一个**&#x2F;**</li>
+</ul>
+<ol start="2">
+<li><p><strong>单标签</strong>：无结束标签</p>
+<p>如&lt;br&gt;:换行</p>
+<p>&lt;hr&gt;:水平线</p>
+</li>
+</ol>
+<h1 id="二-HTML骨架"><a href="#二-HTML骨架" class="headerlink" title="二.HTML骨架"></a>二.HTML骨架</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">title</span>&gt;</span>网页标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        网页主体</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>vs code中快速生成骨架,!(英文)加Enter&#x2F;Tab键</p>
+<h1 id="三-标签关系"><a href="#三-标签关系" class="headerlink" title="三.标签关系"></a>三.标签关系</h1><ul>
+<li>父子关系</li>
+<li>并列关系</li>
+</ul>
+<h1 id="四-注释"><a href="#四-注释" class="headerlink" title="四.注释"></a>四.注释</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注释内容--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加或删除的快捷键：Ctrl + &#x2F;</p>
+<h1 id="五-各类标签"><a href="#五-各类标签" class="headerlink" title="五.各类标签"></a>五.各类标签</h1><h2 id="1-标题标签"><a href="#1-标题标签" class="headerlink" title="1.标题标签"></a>1.标题标签</h2><p>h1~h6</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>一级标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>二级标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>h1在一个网页中只能用一次</p>
+<h2 id="2-段落标签"><a href="#2-段落标签" class="headerlink" title="2.段落标签"></a>2.段落标签</h2><p>标签名：p(双标签)</p>
+<h2 id="3-换行与水平标签"><a href="#3-换行与水平标签" class="headerlink" title="3.换行与水平标签"></a>3.换行与水平标签</h2><ul>
+<li>换行：&lt;br&gt;(单标签)</li>
+<li>水平线：&lt;hr&gt;</li>
+</ul>
+<h2 id="4-文本格式化标签"><a href="#4-文本格式化标签" class="headerlink" title="4.文本格式化标签"></a>4.文本格式化标签</h2><table>
+<thead>
+<tr>
+<th align="center">标签名</th>
+<th align="center">效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">strong</td>
+<td align="center"><strong>加粗</strong></td>
+</tr>
+<tr>
+<td align="center">em</td>
+<td align="center"><em>倾斜</em></td>
+</tr>
+<tr>
+<td align="center">ins</td>
+<td align="center"><u>下划线</u></td>
+</tr>
+<tr>
+<td align="center">del</td>
+<td align="center"><del>删除线</del></td>
+</tr>
+</tbody></table>
+<h2 id="5-图片标签"><a href="#5-图片标签" class="headerlink" title="5.图片标签"></a>5.图片标签</h2><p>语法：&lt;img src&#x3D;”图片的URL”&gt;</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">作用</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">alt</td>
+<td align="center">替换文本</td>
+<td align="center">图片不显示的时候显示文字</td>
+</tr>
+<tr>
+<td align="center">title</td>
+<td align="center">提示文本</td>
+<td align="center">鼠标悬停在图片上的时候显示的文字</td>
+</tr>
+<tr>
+<td align="center">width</td>
+<td align="center">图片的宽度</td>
+<td align="center">值为数字，无单位</td>
+</tr>
+<tr>
+<td align="center">height</td>
+<td align="center">图片的高度</td>
+<td align="center">值为数字，无单位</td>
+</tr>
+</tbody></table>
+<h2 id="6-音频标签"><a href="#6-音频标签" class="headerlink" title="6.音频标签"></a>6.音频标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">&quot;音频的URL&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">作用</th>
+<th align="center">特殊说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">src（必须属性）</td>
+<td align="center">音频URL</td>
+<td align="center">支持格式：MP3，Ogg，Wav</td>
+</tr>
+<tr>
+<td align="center">controls</td>
+<td align="center">显示音频控制面板</td>
+<td align="center">直接写名</td>
+</tr>
+<tr>
+<td align="center">loop</td>
+<td align="center">循环播放</td>
+<td align="center">直接写名</td>
+</tr>
+<tr>
+<td align="center">autoplay</td>
+<td align="center">自动播放</td>
+<td align="center">直接写名（浏览器一般会禁用自动播放功能）</td>
+</tr>
+</tbody></table>
+<h2 id="7-视频标签"><a href="#7-视频标签" class="headerlink" title="7.视频标签"></a>7.视频标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">&quot;视频的URL&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>常见属性</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">作用</th>
+<th align="center">特殊说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">src（必须属性）</td>
+<td align="center">视频URL</td>
+<td align="center">支持格式：MP4，Ogg，WebM</td>
+</tr>
+<tr>
+<td align="center">controls</td>
+<td align="center">显示视频控制面板</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">loop</td>
+<td align="center">循环播放</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">muted</td>
+<td align="center">静音播放</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">autoplay</td>
+<td align="center">自动播放</td>
+<td align="center">浏览器支持在静音状态自动播放</td>
+</tr>
+</tbody></table>
+<h2 id="8-列表标签"><a href="#8-列表标签" class="headerlink" title="8.列表标签"></a>8.列表标签</h2><ul>
+<li><p>无序列表</p>
+<p>ul嵌套li，ul为无序列表，li是列表条目</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>第一项<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>第二项<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有序列表</p>
+<p>ol嵌套li，ol为有序列表，li是列表条目</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>第一项<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>第二项<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ol标签里只能包括li标签</li>
+<li>li标签里包括任何内容</li>
+</ul>
+</li>
+<li><p>定义列表</p>
+<p>dl嵌套dt和dd，dl是定义列表，dt是定义列表的标题，dd是定义列表的描述&#x2F;详情</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>列表标题<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>列表描述/详情<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>列表描述/详情<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dl标签里只能包括dt和dd</li>
+<li>dt和dd标签里包括任何内容</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-表格标签"><a href="#9-表格标签" class="headerlink" title="9.表格标签"></a>9.表格标签</h2><ul>
+<li>table嵌套tr，tr嵌套td&#x2F;th</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">标签名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">table</td>
+<td align="center">表格</td>
+</tr>
+<tr>
+<td align="center">tr</td>
+<td align="center">行</td>
+</tr>
+<tr>
+<td align="center">th</td>
+<td align="center">表头单元格</td>
+</tr>
+<tr>
+<td align="center">td</td>
+<td align="center">内容单元格</td>
+</tr>
+</tbody></table>
+<p>使用border属性可为表格添加边框线</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>border表格线粗细</p>
+<ul>
+<li><p>表格结构标签（了解）</p>
+<table>
+<thead>
+<tr>
+<th align="center">标签名</th>
+<th align="center">含义</th>
+<th align="center">特殊说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">thead</td>
+<td align="center">表格头部</td>
+<td align="center">表格头部内容</td>
+</tr>
+<tr>
+<td align="center">tbody</td>
+<td align="center">表格主体</td>
+<td align="center">主要内容区域</td>
+</tr>
+<tr>
+<td align="center">tfoot</td>
+<td align="center">表格底部</td>
+<td align="center">汇总信息区域</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>合并单元格</p>
+<p>将多个单元格合并成一个单元格，以合并同类信息</p>
+<p>步骤</p>
+<ol>
+<li><p>明确合并目标</p>
+</li>
+<li><p>保留最左最上的单元格，添加属性（取值是数字，表示需要合并的单元格数量）</p>
+<ul>
+<li>跨行合并，保留最上单元格，添加属性rowspan</li>
+<li>跨列合并，保留最左单元格，添加属性colspan</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;td colspan=&quot;3&quot;&gt;第一&lt;/td&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="10-input标签"><a href="#10-input标签" class="headerlink" title="10.input标签"></a>10.input标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;...&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">type属性值</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">text</td>
+<td align="center">文本框，输入单行文本</td>
+</tr>
+<tr>
+<td align="center">password</td>
+<td align="center">密码框</td>
+</tr>
+<tr>
+<td align="center">radio</td>
+<td align="center">单选框</td>
+</tr>
+<tr>
+<td align="center">checkbox</td>
+<td align="center">多选框</td>
+</tr>
+<tr>
+<td align="center">file</td>
+<td align="center">上传文件</td>
+</tr>
+</tbody></table>
+<p>占位文本：提示信息</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;...&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;提示信息&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>单选框radio</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性名</th>
+<th align="center">作用</th>
+<th align="center">特殊说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">name</td>
+<td align="center">控件名称</td>
+<td align="center">（name&#x3D;”自定义”）控件分组，同组只能选中一个（单选功能）</td>
+</tr>
+<tr>
+<td align="center">checked</td>
+<td align="center">默认选中</td>
+<td align="center">属性名和属性值相同，简写为一个单词</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>上传多个文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">multiple</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>多选框默认选中：checked</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">checked</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="11-按钮标签"><a href="#11-按钮标签" class="headerlink" title="11.按钮标签"></a>11.按钮标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;&quot;</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>type属性值：</p>
+<table>
+<thead>
+<tr>
+<th align="center">type属性值</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">submit</td>
+<td align="center">提交按钮，提交数据到后台</td>
+</tr>
+<tr>
+<td align="center">reset</td>
+<td align="center">重置按钮，将表单控件恢复默认</td>
+</tr>
+<tr>
+<td align="center">button</td>
+<td align="center">普通按钮，默认没有功能</td>
+</tr>
+</tbody></table>
+<p>与form标签一起用，将这一区域数据整体发送给后台<br>action是未来发送数据的地址</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="六-路径"><a href="#六-路径" class="headerlink" title="六.路径"></a>六.路径</h1><ul>
+<li><p>相对路径</p>
+<p>.	当前文件所在文件夹</p>
+<p>..	当前文件上一级文件夹</p>
+</li>
+<li><p>绝对路径</p>
+<p>从盘符出发</p>
+</li>
+</ul>
+<p>&#x2F;	进入某个文件夹里</p>
+<h1 id="七-超链接"><a href="#七-超链接" class="headerlink" title="七.超链接"></a>七.超链接</h1><p>语法：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.baidu.com/&quot;</span>&gt;</span>跳转到百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.baidu.com/&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>跳转到百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>target=&quot;_blank&quot;</code>会在新窗口打开</p>
+<p>在开发初期不知道链接跳转地址，herf属性值写#，表示空链接，不会跳转</p>
+<p><strong>网页制作思路：从上到下，先整体后局部，逐步分析制作</strong></p>
+<h1 id="八-下拉菜单"><a href="#八-下拉菜单" class="headerlink" title="八.下拉菜单"></a>八.下拉菜单</h1><p>标签：select嵌套option，select是下拉菜单整体，option是下拉菜单的每一项。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span>&gt;</span>武汉<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>默认属性：selected</p>
+<h1 id="九-文本域"><a href="#九-文本域" class="headerlink" title="九.文本域"></a>九.文本域</h1><p>作用：多行输入文本</p>
+<p>标签：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">pleaseholder</span>=<span class="string">&quot;背景文字&quot;</span>&gt;</span>（不是背景文字）请输入文字<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="十-label标签"><a href="#十-label标签" class="headerlink" title="十.label标签"></a>十.label标签</h1><p>用label标签绑定文字与表单控件的关系，增大表单控件的点击范围（支持很多）</p>
+<ul>
+<li><p>写法一</p>
+<ul>
+<li><p>label标签只包裹内容，不包裹表单控件</p>
+</li>
+<li><p>设置label标签的for属性值和表单控件的id属性值相同</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">id</span>=<span class="string">&quot;man&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;man&quot;</span>&gt;</span>男<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>写法二</p>
+<ul>
+<li><pre><code class="html">&lt;label&gt;&lt;input type=&quot;radio&quot;&gt;女&lt;/label&gt;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 十一.无语义的布局标签</span><br><span class="line"></span><br><span class="line">作用：布局网页，划分网页区域，摆放内容</span><br><span class="line"></span><br><span class="line">```html</span><br><span class="line">&lt;div&gt;div标签，独占一行&lt;/div&gt;</span><br><span class="line">&lt;span&gt;span标签，不换行&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="十二-字符实体"><a href="#十二-字符实体" class="headerlink" title="十二.字符实体"></a>十二.字符实体</h1><table>
+<thead>
+<tr>
+<th align="center">显示结果</th>
+<th align="center">描述</th>
+<th align="center">实体名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center">空格</td>
+<td align="center">&amp;nbsp;</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">小于号</td>
+<td align="center">&amp;lt;</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="center">大于号</td>
+<td align="center">&amp;gt;</td>
+</tr>
+</tbody></table>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://yzlsjr.github.io">John Doe</a>
+            <p>Link：<a href="https://yzlsjr.github.io/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://yzlsjr.github.io/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a>
+            <p>Publish date：<a href="https://yzlsjr.github.io/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">November 3rd 2024, 6:35:55 pm</a>
+            <p>Update date：<a href="https://yzlsjr.github.io/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">November 3rd 2024, 6:37:04 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2024/11/03/CSS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="CSS的学习">
+                    <div class="prevTitle">CSS的学习</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:3322361393@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YZLSJR" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E6%A0%87%E7%AD%BE%E8%AF%AD%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">一.标签语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-HTML%E9%AA%A8%E6%9E%B6"><span class="toc-number">2.</span> <span class="toc-text">二.HTML骨架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E6%A0%87%E7%AD%BE%E5%85%B3%E7%B3%BB"><span class="toc-number">3.</span> <span class="toc-text">三.标签关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E6%B3%A8%E9%87%8A"><span class="toc-number">4.</span> <span class="toc-text">四.注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E5%90%84%E7%B1%BB%E6%A0%87%E7%AD%BE"><span class="toc-number">5.</span> <span class="toc-text">五.各类标签</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A0%87%E9%A2%98%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.</span> <span class="toc-text">1.标题标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%AE%B5%E8%90%BD%E6%A0%87%E7%AD%BE"><span class="toc-number">5.2.</span> <span class="toc-text">2.段落标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%8D%A2%E8%A1%8C%E4%B8%8E%E6%B0%B4%E5%B9%B3%E6%A0%87%E7%AD%BE"><span class="toc-number">5.3.</span> <span class="toc-text">3.换行与水平标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%A0%87%E7%AD%BE"><span class="toc-number">5.4.</span> <span class="toc-text">4.文本格式化标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%9B%BE%E7%89%87%E6%A0%87%E7%AD%BE"><span class="toc-number">5.5.</span> <span class="toc-text">5.图片标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%9F%B3%E9%A2%91%E6%A0%87%E7%AD%BE"><span class="toc-number">5.6.</span> <span class="toc-text">6.音频标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%A7%86%E9%A2%91%E6%A0%87%E7%AD%BE"><span class="toc-number">5.7.</span> <span class="toc-text">7.视频标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%88%97%E8%A1%A8%E6%A0%87%E7%AD%BE"><span class="toc-number">5.8.</span> <span class="toc-text">8.列表标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E8%A1%A8%E6%A0%BC%E6%A0%87%E7%AD%BE"><span class="toc-number">5.9.</span> <span class="toc-text">9.表格标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-input%E6%A0%87%E7%AD%BE"><span class="toc-number">5.10.</span> <span class="toc-text">10.input标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E6%8C%89%E9%92%AE%E6%A0%87%E7%AD%BE"><span class="toc-number">5.11.</span> <span class="toc-text">11.按钮标签</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD-%E8%B7%AF%E5%BE%84"><span class="toc-number">6.</span> <span class="toc-text">六.路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83-%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">七.超链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB-%E4%B8%8B%E6%8B%89%E8%8F%9C%E5%8D%95"><span class="toc-number">8.</span> <span class="toc-text">八.下拉菜单</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D-%E6%96%87%E6%9C%AC%E5%9F%9F"><span class="toc-number">9.</span> <span class="toc-text">九.文本域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81-label%E6%A0%87%E7%AD%BE"><span class="toc-number">10.</span> <span class="toc-text">十.label标签</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C-%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93"><span class="toc-number">11.</span> <span class="toc-text">十二.字符实体</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 10
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/04/07/Typora%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Typora的使用笔记</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2024/04/07/python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2024/04/07/hello-world/">Hello World</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/04/08/xss-labs/">xss靶场</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/05/14/PHP%20learning/">PHP学习</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/11/03/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2024/11/03/Token/">Token</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2024/11/03/Python%20MySQL%E4%BA%A4%E4%BA%92/">Python MySQL交互</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/11/03/CSS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">CSS的学习</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">HTML学习</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://yzlsjr.github.io",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
