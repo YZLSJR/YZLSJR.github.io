@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="taoCMS部署记录准备创建新数据库  创建网站taoCMS，端口与localhost不能冲突，php版本调低（5.4左右）  start访问install文件，填写数据库地址端口，数据库名，密码，用户名（数据库名和用户名别填错） install。。。 删除data文件夹下的install.lock文件 访问admin文件，用户名admin，密码tao 进入管理系统 阅读taoCMS代码MVC我先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://yzlsjr.github.io/2024/11/10/taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="taoCMS部署记录准备创建新数据库  创建网站taoCMS，端口与localhost不能冲突，php版本调低（5.4左右）  start访问install文件，填写数据库地址端口，数据库名，密码，用户名（数据库名和用户名别填错） install。。。 删除data文件夹下的install.lock文件 访问admin文件，用户名admin，密码tao 进入管理系统 阅读taoCMS代码MVC我先">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/hexo/blog/source/images/%7BF79F53A3-B9AF-4E43-A7EB-EC4B9908CDA9%7D.png">
+<meta property="og:image" content="c:/hexo/blog/source/images/%7B69735BC2-53D4-40DA-BE81-0812E4BB2591%7D.png">
+<meta property="article:published_time" content="2024-11-10T14:11:21.546Z">
+<meta property="article:modified_time" content="2024-11-10T14:02:29.406Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/hexo/blog/source/images/%7BF79F53A3-B9AF-4E43-A7EB-EC4B9908CDA9%7D.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>木易小窝</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- Google tag (gtag.js) -->
+    
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>木易小窝</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">木易小窝</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name"></a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                [Untitled Post]
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2024/11/10</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="taoCMS部署记录"><a href="#taoCMS部署记录" class="headerlink" title="taoCMS部署记录"></a>taoCMS部署记录</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>创建新数据库</p>
+<p><img src="C:/hexo/blog/source/images/%7BF79F53A3-B9AF-4E43-A7EB-EC4B9908CDA9%7D.png" alt="{F79F53A3-B9AF-4E43-A7EB-EC4B9908CDA9}"></p>
+<p>创建网站taoCMS，端口与localhost不能冲突，php版本调低（5.4左右）</p>
+<p><img src="C:/hexo/blog/source/images/%7B69735BC2-53D4-40DA-BE81-0812E4BB2591%7D.png" alt="{69735BC2-53D4-40DA-BE81-0812E4BB2591}"></p>
+<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><p>访问install文件，填写数据库地址端口，数据库名，密码，用户名（数据库名和用户名别填错）</p>
+<p>install。。。</p>
+<p>删除<code>data</code>文件夹下的<code>install.lock</code>文件</p>
+<p>访问admin文件，用户名admin，密码tao</p>
+<p>进入管理系统</p>
+<h1 id="阅读taoCMS代码"><a href="#阅读taoCMS代码" class="headerlink" title="阅读taoCMS代码"></a>阅读taoCMS代码</h1><h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>我先来了解一下MVC，GPT：</p>
+<p><strong>Model（模型）</strong></p>
+<ul>
+<li>负责处理与数据和业务逻辑相关的内容。</li>
+<li>从数据库获取数据、处理数据逻辑，并把数据返回给控制器或视图。</li>
+<li>例如：在博客应用中，<code>Post</code>模型会负责处理文章的增删改查操作。</li>
+</ul>
+<p><strong>View（视图）</strong></p>
+<ul>
+<li>负责显示数据和用户界面。</li>
+<li>视图从控制器获得数据，通常是呈现成用户能理解的界面（HTML页面）。</li>
+<li>例如：在博客应用中，<code>post_view.php</code> 文件可能负责显示单篇文章的内容。</li>
+</ul>
+<p><strong>Controller（控制器）</strong></p>
+<ul>
+<li>控制器是应用程序的核心，它接收用户请求，调用模型获取数据，然后把数据传递给视图。</li>
+<li>例如：在博客应用中，<code>PostController</code>可能会根据用户请求调用<code>Post</code>模型，获取所需文章数据，并传递给<code>post_view</code>来展示。</li>
+</ul>
+<p>我们需要一个简单的路由来解析URL请求并调用控制器。</p>
+<h2 id="代码阅读（前期自己大致的一些了解，比较粗糙）"><a href="#代码阅读（前期自己大致的一些了解，比较粗糙）" class="headerlink" title="代码阅读（前期自己大致的一些了解，比较粗糙）"></a>代码阅读（前期自己大致的一些了解，比较粗糙）</h2><p>全局搜索执行SQL，SQL.php中找到<code>$creatTable=Base::magic2word($_POST[&#39;sqltext&#39;]);</code>再搜索magic2word</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">magic2word</span>(<span class="params"><span class="variable">$text</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">is_array</span>(<span class="variable">$text</span>)) &#123;</span><br><span class="line">       <span class="keyword">foreach</span>(<span class="variable">$text</span> <span class="keyword">as</span> <span class="variable">$k</span>=&gt;<span class="variable">$v</span>)&#123;</span><br><span class="line">       <span class="variable">$text</span>[<span class="variable">$k</span>]=<span class="built_in">self</span>::<span class="title function_ invoke__">magic2word</span>(<span class="variable">$v</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">       <span class="variable">$text</span>=<span class="title function_ invoke__">stripslashes</span>(<span class="variable">$text</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$text</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将输入的内容去除转义字符</p>
+<p>执行SQL功能逻辑</p>
+<ul>
+<li><p>输入SQL语句，输入框限制输入20行</p>
+</li>
+<li><pre><code class="html">&lt;input name=&quot;action&quot; type=&quot;hidden&quot; value=&quot;sql&quot; /&gt;
+&lt;input name=&quot;ctrl&quot; type=&quot;hidden&quot; value=&quot;excute&quot; /&gt;
+&lt;input type=&quot;submit&quot; name=&quot;Submit&quot; id=&quot;submits&quot; value=&quot;执行SQL&quot; /&gt;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 点击按钮，前两句会将输入的内容找到对应执行的模块</span><br><span class="line"></span><br><span class="line">* ```php</span><br><span class="line">  function excute()&#123;</span><br><span class="line">      $creatTable=Base::magic2word($_POST[&#x27;sqltext&#x27;]);</span><br><span class="line">      $db=new Dbclass(SYS_ROOT.DB_NAME);</span><br><span class="line">      $o=$db-&gt;query($creatTable);</span><br><span class="line">      echo&#x27;&lt;pre&gt;&#x27;;</span><br><span class="line">      print_r($db-&gt;fetch_array($o));</span><br><span class="line">      Base::execmsg(&#x27;执行SQL&#x27;,&#x27;?action=sql&amp;ctrl=display&#x27;,$o);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">query</span>(<span class="params"><span class="variable">$sql</span></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//echo $sql;</span></span><br><span class="line">    <span class="variable">$query</span> = <span class="variable language_">$this</span>-&gt;conn-&gt;<span class="title function_ invoke__">query</span>(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$query</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+安全过滤
+</code></pre>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">safeword</span>(<span class="params"><span class="variable">$text</span>,<span class="variable">$level</span>=<span class="number">8</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">is_array</span>(<span class="variable">$text</span>))</span><br><span class="line">    &#123;</span><br><span class="line">       <span class="keyword">foreach</span>( <span class="variable">$text</span> <span class="keyword">as</span> <span class="variable">$key</span>=&gt;<span class="variable">$value</span>)&#123;</span><br><span class="line">          <span class="variable">$safeword</span>[<span class="variable">$key</span>]=<span class="built_in">self</span>::<span class="title function_ invoke__">safeword</span>(<span class="variable">$value</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="variable">$level</span>)</span><br><span class="line">       &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="variable">$text</span>;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">intval</span>(<span class="variable">$text</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">strip_tags</span>(<span class="variable">$text</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">nl2br</span>(<span class="title function_ invoke__">htmlspecialchars</span>(<span class="variable">$text</span>));</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&#x27;&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="title function_ invoke__">addslashes</span>(<span class="variable">$text</span>));</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;select&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$safeword</span>);</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;union&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$safeword</span>);</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;=&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$safeword</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">default</span>:</span><br><span class="line">             <span class="keyword">if</span>(<span class="title function_ invoke__">ucfirst</span>(DB)==<span class="string">&#x27;Sqlite&#x27;</span>)&#123;</span><br><span class="line">                <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&#x27;&quot;</span>,<span class="string">&quot;&#x27;&#x27;&quot;</span>,<span class="variable">$text</span>);</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="variable">$safeword</span>=<span class="title class_">Base</span>::<span class="title function_ invoke__">_addslashs</span>(<span class="variable">$text</span>);</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">       </span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$safeword</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>safeword()函数对输入内容进行过滤，并且是分级的，默认分级是8，对不同数据（name，emails等）进行处理时可以进行调整</li>
+</ul>
+<h2 id="博客参考（有些混乱，SQL注入漏洞还没有写笔记，还在理解中，后续问题大写问题文档，小就当面问）"><a href="#博客参考（有些混乱，SQL注入漏洞还没有写笔记，还在理解中，后续问题大写问题文档，小就当面问）" class="headerlink" title="博客参考（有些混乱，SQL注入漏洞还没有写笔记，还在理解中，后续问题大写问题文档，小就当面问）"></a>博客参考（有些混乱，SQL注入漏洞还没有写笔记，还在理解中，后续问题大写问题文档，小就当面问）</h2><p>注意到Model下的File.php提供了文件上传下载的功能，想要利用这个函数需要想到：函数参数是否可控，函数有没有回显</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$info</span>=<span class="title function_ invoke__">pathinfo</span>(<span class="variable">$this</span>-&gt;path);</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Content-Disposition: attachment; filename=&quot;&#x27;</span>.<span class="variable">$info</span>[<span class="string">&#x27;basename&#x27;</span>].<span class="string">&#x27;&quot;&#x27;</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$this</span>-&gt;realpath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需要查看<code>file_get_contents()</code>函数参数是否可控</p>
+<h3 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h3><p>输入评论的时候，会对我们输入的内容进行过滤，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=Base::safeword( Base::safeword($_POST[&#x27;name&#x27;],3),5);</span><br></pre></td></tr></table></figure>
+
+<p>追踪到<code>safeword()</code>函数 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">safeword</span>(<span class="params"><span class="variable">$text</span>,<span class="variable">$level</span>=<span class="number">8</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">is_array</span>(<span class="variable">$text</span>))</span><br><span class="line">    &#123;</span><br><span class="line">       <span class="keyword">foreach</span>( <span class="variable">$text</span> <span class="keyword">as</span> <span class="variable">$key</span>=&gt;<span class="variable">$value</span>)&#123;</span><br><span class="line">          <span class="variable">$safeword</span>[<span class="variable">$key</span>]=<span class="built_in">self</span>::<span class="title function_ invoke__">safeword</span>(<span class="variable">$value</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">       <span class="keyword">switch</span> (<span class="variable">$level</span>)</span><br><span class="line">       &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="variable">$text</span>;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">intval</span>(<span class="variable">$text</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">strip_tags</span>(<span class="variable">$text</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">nl2br</span>(<span class="title function_ invoke__">htmlspecialchars</span>(<span class="variable">$text</span>));</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&#x27;&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="title function_ invoke__">addslashes</span>(<span class="variable">$text</span>));</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;select&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$safeword</span>);</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;union&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$safeword</span>);</span><br><span class="line">             <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;=&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$safeword</span>);</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">default</span>:</span><br><span class="line">             <span class="keyword">if</span>(<span class="title function_ invoke__">ucfirst</span>(DB)==<span class="string">&#x27;Sqlite&#x27;</span>)&#123;</span><br><span class="line">                <span class="variable">$safeword</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&#x27;&quot;</span>,<span class="string">&quot;&#x27;&#x27;&quot;</span>,<span class="variable">$text</span>);</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="variable">$safeword</span>=<span class="title class_">Base</span>::<span class="title function_ invoke__">_addslashs</span>(<span class="variable">$text</span>);</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">       </span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$safeword</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>strip_tags 去除所有 HTML、XML、PHP 的标签。</li>
+<li>htmlspecialchars 把预定义的字符转换成 HTML 实体。</li>
+<li>nl2br 把字符串中的 \n 转换成 \</li>
+</ol>
+<p>但是忽略了一种情况那就是回复@的时候，过滤不到位</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#commentarea&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;return backcomment(&#x27;用户输入的名字&#x27;);&quot;</span>&gt;</span>回复<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>观察前端代码追踪backcomment函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">backcomment</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">    <span class="variable">$tao</span>(<span class="string">&#x27;comment&#x27;</span>).value=<span class="variable">$tao</span>(<span class="string">&#x27;comment&#x27;</span>).value+<span class="string">&quot;@&quot;</span>+msg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里只是简单的进行拼接并没有进行过滤，只是用单引号包裹，所以我们可以这样输入用户名<code>aaa&#39;)+alert(1)+(&#39;</code>，点击回复按钮即可触发XSS。</p>
+<p>所以说，在正面针对用户的输入，人们的防护会更严谨更好一些，而侧面以及间接使用的地方（比如在@的时候会引用名字）就会薄弱或者忘记，导致名字被直接拼接，没有被使用。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://yzlsjr.github.io">John Doe</a>
+            <p>Link：<a href="https://yzlsjr.github.io/2024/11/10/taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/">https://yzlsjr.github.io/2024/11/10/taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/</a>
+            <p>Publish date：<a href="https://yzlsjr.github.io/2024/11/10/taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/">November 10th 2024, 10:11:21 pm</a>
+            <p>Update date：<a href="https://yzlsjr.github.io/2024/11/10/taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/">November 10th 2024, 10:02:29 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2024/11/10/%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/" title="">
+                    <div class="nextTitle">[Untitled Post]</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2024/11/03/%E6%8B%9B%E6%96%B0%E5%A4%8D%E7%9B%98/" title="2024秋季招新复盘">
+                    <div class="prevTitle">2024秋季招新复盘</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:3322361393@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YZLSJR" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">taoCMS部署记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#start"><span class="toc-number">1.2.</span> <span class="toc-text">start</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%85%E8%AF%BBtaoCMS%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">阅读taoCMS代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC"><span class="toc-number">2.1.</span> <span class="toc-text">MVC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%89%8D%E6%9C%9F%E8%87%AA%E5%B7%B1%E5%A4%A7%E8%87%B4%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%86%E8%A7%A3%EF%BC%8C%E6%AF%94%E8%BE%83%E7%B2%97%E7%B3%99%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">代码阅读（前期自己大致的一些了解，比较粗糙）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E5%8F%82%E8%80%83%EF%BC%88%E6%9C%89%E4%BA%9B%E6%B7%B7%E4%B9%B1%EF%BC%8CSQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E8%BF%98%E6%B2%A1%E6%9C%89%E5%86%99%E7%AC%94%E8%AE%B0%EF%BC%8C%E8%BF%98%E5%9C%A8%E7%90%86%E8%A7%A3%E4%B8%AD%EF%BC%8C%E5%90%8E%E7%BB%AD%E9%97%AE%E9%A2%98%E5%A4%A7%E5%86%99%E9%97%AE%E9%A2%98%E6%96%87%E6%A1%A3%EF%BC%8C%E5%B0%8F%E5%B0%B1%E5%BD%93%E9%9D%A2%E9%97%AE%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">博客参考（有些混乱，SQL注入漏洞还没有写笔记，还在理解中，后续问题大写问题文档，小就当面问）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS%E6%BC%8F%E6%B4%9E"><span class="toc-number">2.3.1.</span> <span class="toc-text">XSS漏洞</span></a></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 13
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/04/07/Typora%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">Typora的使用笔记</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2024/04/07/python%E5%AD%A6%E4%B9%A0/">Python学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span>
+            <a class="archive-post-title" href="/2024/04/07/hello-world/">Hello World</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/04/08/xss-labs/">xss靶场</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/05/14/PHP%20learning/">PHP学习</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/11/03/SQL%E6%B3%A8%E5%85%A5/">[Untitled Post]</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/2024/11/10/%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2024/11/03/Token/">Token</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2024/11/03/Python%20MySQL%E4%BA%A4%E4%BA%92/">Python MySQL交互</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/11/03/CSS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">CSS的学习</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2024/11/03/HTML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">HTML学习</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2024 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span>
+            <a class="archive-post-title" href="/2024/11/10/taoCMS%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/">[Untitled Post]</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span>
+            <a class="archive-post-title" href="/2024/11/03/%E6%8B%9B%E6%96%B0%E5%A4%8D%E7%9B%98/">2024秋季招新复盘</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://yzlsjr.github.io",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
